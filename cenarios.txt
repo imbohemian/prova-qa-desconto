@@ -1,37 +1,40 @@
-CENÁRIOS DE TESTE - calcular_desconto(valor_compra, tipo_cliente)
-O resultado esperado é o valor do desconto em reais.
+Cenários - calcular_desconto
 
-Faixas de desconto - cliente COMUM
-1. Compra de 0 -> desconto 0
-2. Compra de 50 -> desconto 0 (abaixo de 100)
-3. Compra de 99,99 -> desconto 0 (limite logo abaixo de 100)
-4. Compra de 100 -> desconto 10 (limite exato, começa 10%)
-5. Compra de 300 -> desconto 30 (meio da faixa de 10%)
-6. Compra de 499,99 -> desconto 50 (limite logo abaixo de 500, ainda 10%)
-7. Compra de 500 -> desconto 100 (limite exato, começa 20%)
-8. Compra de 800 -> desconto 160 (faixa de 20%)
+Cliente comum
+1. compra de 0 = desconto 0
+2. compra de 50 = 0, não chega em 100
+3. compra de 99,99 = 0 (logo antes do limite de 100)
+4. compra de 100 = 10 (no código original dava 0)
+5. compra de 100,01 = 10 (logo depois do limite de 100)
+6. compra de 300 = 30
+7. compra de 499,99 = 50 (logo antes do limite de 500)
+8. compra de 500 = 100
+9. compra de 500,01 = 100 (logo depois do limite de 500)
+10. compra de 800 = 160
 
-Faixas de desconto - cliente VIP (5% extras)
-9. Compra de 50 -> desconto 2,50 (0% vira 5%)
-10. Compra de 99 -> desconto 4,95 (logo abaixo de 100)
-11. Compra de 100 -> desconto 15 (10% vira 15%)
-12. Compra de 300 -> desconto 45
-13. Compra de 499 -> desconto 74,85 (logo abaixo de 500)
-14. Compra de 500 -> desconto 125 (20% vira 25%)
+Cliente VIP
+11. compra de 50 = 2,50 (só os 5% do VIP)
+12. compra de 99 = 4,95
+13. compra de 100 = 15 (no original dava 5)
+14. compra de 100,01 = 15
+15. compra de 300 = 45
+16. compra de 499 = 74,85
+17. compra de 500 = 125
+18. compra de 500,01 = 125
 
-Tipo de cliente em maiúsculo ou minúsculo
-15. Compra de 300 com "vip", "Vip" e "vIp" -> desconto 45
-16. Compra de 300 com "comum" -> desconto 30
+VIP escrito de outro jeito
+19. compra de 300 com "vip", "Vip" e "vIp" = 45 (no original dava 30)
+20. compra de 300 com "comum" minúsculo = 30
 
-Regra do teto de R$ 200,00
-17. Compra de 1000 COMUM -> desconto 200 (exatamente no teto)
-18. Compra de 1001 COMUM -> desconto 200 (passaria para 200,20)
-19. Compra de 2000 COMUM -> desconto 200 (passaria para 400)
-20. Compra de 800 VIP -> desconto 200 (exatamente no teto)
-21. Compra de 801 VIP -> desconto 200 (passaria para 200,25)
-22. Compra de 5000 VIP -> desconto 200 (passaria para 1250)
+Teto de 200 reais
+21. compra de 999 comum = 199,80 (logo antes do teto)
+22. compra de 1000 comum = 200, bate certinho no teto
+23. compra de 1001 e de 2000 comum = 200
+24. compra de 799 VIP = 199,75 (logo antes do teto)
+25. compra de 800 VIP = 200
+26. compra de 801 e de 5000 VIP = 200
 
-Dados inesperados (não descritos na regra)
-23. Valor da compra negativo (-1 e -100) -> erro "Valor da compra inválido"
-24. Valor da compra que não é número ("abc" e None) -> erro "Valor da compra inválido"
-25. Tipo de cliente desconhecido ("GOLD"), vazio, None ou número -> erro "Tipo de cliente inválido"
+Dados que não estavam na regra
+27. valor negativo (-1 e -100) = tem que dar erro
+28. valor que não é número ("abc" e None) = tem que dar erro
+29. tipo de cliente que não existe ("GOLD", vazio, None, 123) = tem que dar erro
