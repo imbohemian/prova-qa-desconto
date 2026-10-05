@@ -1,0 +1,37 @@
+CENÁRIOS DE TESTE - calcular_desconto(valor_compra, tipo_cliente)
+O resultado esperado é o valor do desconto em reais.
+
+Faixas de desconto - cliente COMUM
+1. Compra de 0 -> desconto 0
+2. Compra de 50 -> desconto 0 (abaixo de 100)
+3. Compra de 99,99 -> desconto 0 (limite logo abaixo de 100)
+4. Compra de 100 -> desconto 10 (limite exato, começa 10%)
+5. Compra de 300 -> desconto 30 (meio da faixa de 10%)
+6. Compra de 499,99 -> desconto 50 (limite logo abaixo de 500, ainda 10%)
+7. Compra de 500 -> desconto 100 (limite exato, começa 20%)
+8. Compra de 800 -> desconto 160 (faixa de 20%)
+
+Faixas de desconto - cliente VIP (5% extras)
+9. Compra de 50 -> desconto 2,50 (0% vira 5%)
+10. Compra de 99 -> desconto 4,95 (logo abaixo de 100)
+11. Compra de 100 -> desconto 15 (10% vira 15%)
+12. Compra de 300 -> desconto 45
+13. Compra de 499 -> desconto 74,85 (logo abaixo de 500)
+14. Compra de 500 -> desconto 125 (20% vira 25%)
+
+Tipo de cliente em maiúsculo ou minúsculo
+15. Compra de 300 com "vip", "Vip" e "vIp" -> desconto 45
+16. Compra de 300 com "comum" -> desconto 30
+
+Regra do teto de R$ 200,00
+17. Compra de 1000 COMUM -> desconto 200 (exatamente no teto)
+18. Compra de 1001 COMUM -> desconto 200 (passaria para 200,20)
+19. Compra de 2000 COMUM -> desconto 200 (passaria para 400)
+20. Compra de 800 VIP -> desconto 200 (exatamente no teto)
+21. Compra de 801 VIP -> desconto 200 (passaria para 200,25)
+22. Compra de 5000 VIP -> desconto 200 (passaria para 1250)
+
+Dados inesperados (não descritos na regra)
+23. Valor da compra negativo (-1 e -100) -> erro "Valor da compra inválido"
+24. Valor da compra que não é número ("abc" e None) -> erro "Valor da compra inválido"
+25. Tipo de cliente desconhecido ("GOLD"), vazio, None ou número -> erro "Tipo de cliente inválido"
